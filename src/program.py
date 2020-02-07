@@ -1,7 +1,7 @@
 import mongoengine
 import data.mongo_setup as mongo_setup
 import services.data_service as svc
-
+import my_constants
 
 def main():
     mongo_setup.global_init()
@@ -9,19 +9,20 @@ def main():
 
     action = input("Enter anything between 1-6:")
     action = action.strip().lower()
-    if (action == '1' or action == 'a'):
+    if (action in my_constants.action_add):
         add_customer()
-    elif (action == '2' or action == 'd'):
+    elif (action in my_constants.action_delete):
         delete_customer()
-    elif (action == '3' or action == 'u'):
+    elif (action in my_constants.action_update):
         update_customer()
-    elif (action == '4' or action == 'g'):
+    elif (action in my_constants.action_get_customer):
         get_customer()
-    elif (action == '5' or action == 'c'):
+    elif (action in my_constants.action_get_all_customer):
         get_all_customer()
-    elif (action == '6' or action == 'x' or action == 'exit'):
+    elif (action in my_constants.action_exit):
         exit_app()
     else:
+        print(my_constants.action_add)
         print("Enter valid command:")
     return
 
@@ -57,10 +58,10 @@ def add_customer():
     dob = input("Enter date of birth in [YYYY-MM-DD] format:")
     gender = input("Male or Female:")
     gender = gender.strip().lower()
-    if (gender == 'male' or gender == 'm'):
-        gender = 'Male'
-    elif (gender == 'female' or gender == 'f'):
-        gender = 'Female'
+    if (gender in my_constants.gender_male):
+        gender = my_constants.set_gender_male
+    elif (gender in my_constants.gender_female):
+        gender = my_constants.set_gender_female
     else:
         print('Enter valid input')
         return
